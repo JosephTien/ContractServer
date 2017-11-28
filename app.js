@@ -34,6 +34,7 @@ var contractMap = new Map();
 var userMap = new Map();
 
 var port = process.env.PORT || 8080;
+console.log("port : " + port)
 server.listen(port);
 var serv_io = io.listen(server); // 開啟 Socket.IO 的 listener
 serv_io.sockets.on('connection', function(socket) {

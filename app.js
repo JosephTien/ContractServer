@@ -42,14 +42,17 @@ serv_io.sockets.on('connection', function(socket) {
       data = JSON.parse(data);
       var usera = data.usera;
       var userb = data.userb;
+      var title = data.title;
       var cont = data.contstr;
-      addCont(usera, userb, cont);
+      addCont(usera, userb, title, cont);
     });
     socket.on('getContList', function(data) {
       data = JSON.parse(data);
       var user = data.user;
       socket.emit('getContList', {'contListStr': ""+getContList(user)});
-      console.log( getContList(user));
+
+      //console.log( getContList(user));
+
     });
     socket.on('confirm', function(data) {
       data = JSON.parse(data);
@@ -62,11 +65,18 @@ serv_io.sockets.on('connection', function(socket) {
       var sign = data.sign;
       signature(user, sign);
     });
+    socket.on('getCont', function(data) {
+      data = JSON.parse(data);
+      socket.emit('getCont', getCont(data.cid));
+      //var cid = parseInt(data.cid);
+      var cid = data.cid;
+      console.log(getCont(cid));
+    });
 });
 
-function addCont(usera, userb, cont){
+function addCont(usera, userb, title, cont){
   var contractId = cidtail++;
-  var json = {'usera' : usera, 'userb' : userb, 'cont': cont, 'comfa' : true, 'comfb' : false, 'signa' : '', 'signb' : ''};
+  var json = {'usera' : usera, 'userb' : userb, "title" : title, 'cont': cont, 'comfa' : true, 'comfb' : false, 'signa' : '', 'signb' : '', "time" : ''};
   contractMap.set(contractId, json);
   if(userMap.get(usera)==undefined)userMap.set(usera,[]);
   if(userMap.get(userb)==undefined)userMap.set(userb,[]);
@@ -74,7 +84,7 @@ function addCont(usera, userb, cont){
   var userbarr = userMap.get(userb); userbarr.push(contractId);
   userMap.set(usera, useraarr);
   userMap.set(userb, userbarr);
-  console.log(json);
+  //console.log(json);
   return contractId;
 }
 

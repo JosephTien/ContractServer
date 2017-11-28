@@ -33,7 +33,8 @@ var cidtail = 0;
 var contractMap = new Map();
 var userMap = new Map();
 
-server.listen(3000);
+var port = process.env.PORT || 8080;
+server.listen(port);
 var serv_io = io.listen(server); // 開啟 Socket.IO 的 listener
 serv_io.sockets.on('connection', function(socket) {
     socket.on('addCont', function(data) {

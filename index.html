@@ -11,15 +11,15 @@
         var userid;
 
         socket.on('server_data', function(data) {
-            if(userid+"" == data.targ)$('#msg').text("CID " + data.cid);
+            if(userid+"" == data.user)$('#msg').text("CID " + data.cid);
         });
 
         function submit(){
-            var targ = $('input[name="targ"]').val();
+            var userb = $('input[name="userb"]').val();
             var cont = $('input[name="cont"]').val();
-            socket.emit('client_data', {
-              'user': ""+userid,
-              'targ': targ,
+            socket.emit('addCont', {
+              'usera': ""+userid,
+              'userb': userb,
               'cont': cont
             });
             $('input[name="targ"]').val("");
@@ -30,14 +30,14 @@
                 if(e.keyCode==13)submit();
             });
             userid = Math.floor(Math.random() * 9000) + 1000;
-            $('#user').text("UID" + " " + userid);
+            $('#usera').text("UID" + " " + userid);
         });
 
         </script>
         <div style="background-color:black;width:100%;height:100%;">
-            <div id="user" style="color:white;width:100%;height:20%;text-align:center;line-height:20vmin;font-size:20vmin;word-break: normal;"></div>
+            <div id="usera" style="color:white;width:100%;height:20%;text-align:center;line-height:20vmin;font-size:20vmin;word-break: normal;"></div>
             <div id="msg" style="color:white;width:100%;height:20%;text-align:center;line-height:20vmin;font-size:20vmin;word-break: normal;"></div>
-            <input name="targ" type="text" value="" style="width:100%;height:20%;font-size:4vh;">
+            <input name="userb" type="text" value="" style="width:100%;height:20%;font-size:4vh;">
             <input name="cont" type="text" value="" style="width:100%;height:20%;font-size:4vh;">
             <button style="width:100%;height:20%;font-size:4vh;text-align:center;" onclick="submit();">&uarr;</button>
         </div>

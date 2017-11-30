@@ -135,7 +135,7 @@ serv_io.sockets.on('connection', function(socket) {
 
 function addCont(usera, userb, title, cont){
   var contractId = cidtail++;
-  var json = {'usera' : usera, 'userb' : userb, "title" : title, 'cont': cont, 'comfa' : true, 'comfb' : false, 'signa' : '', 'signb' : '', "time" : ''};
+  var json = {'usera' : usera, 'userb' : userb, "title" : title, 'cont': cont, 'comfa' : true, 'comfb' : false, 'signa' : '', 'signb' : '', "time" : '', 'cid' : contractId};
   contractMap.set(contractId, json);
   if(userMap.get(usera)==undefined)userMap.set(usera,[]);
   if(userMap.get(userb)==undefined)userMap.set(userb,[]);

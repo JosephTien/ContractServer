@@ -10,19 +10,34 @@
         var socket = io.connect();
         var userid;
 
-        socket.on('server_data', function(data) {
-            if(userid+"" == data.user)$('#msg').text("CID " + data.cid);
+        socket.on('getAllConts', function(data) {
+            $('#msg').html("<br\>" + data);
         });
-
+        socket.on('getAllUsers', function(data) {
+            $('#msg').html("<br\>" + data);
+        });
+        function getAllConts(){
+            socket.emit('getAllConts', "");
+        }
+        function getAllUsers(){
+            socket.emit('getAllUsers', "");
+        }
+        function addSamp(){
+            socket.emit('addCont', '{"usera":"1234","userb":"5678","title":"Sample","contstr":"Testing"}');
+        }
+        function reset(){
+            socket.emit('reset', "");
+        }
+        /*
         function submit(){
             var userb = $('input[name="userb"]').val();
             var cont = $('input[name="cont"]').val();
             socket.emit('addCont', {
               'usera': ""+userid,
-              'userb': userb,
-              'cont': cont
+              'userb': ""+userb,
+              'contstr': cont
             });
-            $('input[name="targ"]').val("");
+            $('input[name="userb"]').val("");
             $('input[name="cont"]').val("");
         }
         $(document).ready(function(){
@@ -32,14 +47,21 @@
             userid = Math.floor(Math.random() * 9000) + 1000;
             $('#usera').text("UID" + " " + userid);
         });
-
+        */
         </script>
         <div style="background-color:black;width:100%;height:100%;">
+            <div id="msg" style="color:white;width:100%;height:80%;line-height:3vmin;font-size:3vmin;word-break: normal;"></div>
+            <button style="width:100%;height:5%;font-size:4vh;text-align:center;" onclick="getAllConts();">showAllConts()</button>
+            <button style="width:100%;height:5%;font-size:4vh;text-align:center;" onclick="getAllUsers();">showAllUsers()</button>
+            <button style="width:100%;height:5%;font-size:4vh;text-align:center;" onclick="addSamp();">addSamp()</button>
+            <button style="width:100%;height:5%;font-size:4vh;text-align:center;" onclick="reset();">reset()</button>
+            <!--
             <div id="usera" style="color:white;width:100%;height:20%;text-align:center;line-height:20vmin;font-size:20vmin;word-break: normal;"></div>
             <div id="msg" style="color:white;width:100%;height:20%;text-align:center;line-height:20vmin;font-size:20vmin;word-break: normal;"></div>
             <input name="userb" type="text" value="" style="width:100%;height:20%;font-size:4vh;">
             <input name="cont" type="text" value="" style="width:100%;height:20%;font-size:4vh;">
             <button style="width:100%;height:20%;font-size:4vh;text-align:center;" onclick="submit();">&uarr;</button>
+            -->
         </div>
     </body>
   </html>
